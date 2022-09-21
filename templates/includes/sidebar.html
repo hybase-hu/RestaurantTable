@@ -1,0 +1,24 @@
+{% load static %}
+
+<div class="_sidebar">
+    <nav>
+        <a>
+            <img src="{% static 'images/base/restaurant.png' %}" alt="Restaurant Image"  class="_sidebar_banner">
+        </a>
+
+        <ul class="_ul">
+            <h6><span class="badge bg-secondary">Waiter's menu</span></h6>
+            <li class="_li"><a href="{% url 'table:home' %}">Tables</a></li>
+            <hr>
+            <h6><span class="badge bg-secondary">Chef's menu</span></h6>
+            <li class="_li"><a href="{% url 'orders:list_orders' %}">Orders</a></li>
+            <li class="_li">Disable food</li>
+            <hr>
+             <h6><span class="badge bg-secondary">Manager's menu</span></h6>
+            <li class="_li">Add new tables</li>
+            <li class="_li"><a href="{% url 'food:add_food' %}">Add new food</a></li>
+            <hr>
+        </ul>
+
+    </nav>
+</div>

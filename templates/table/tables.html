@@ -1,0 +1,39 @@
+
+
+{% extends 'includes/main.html' %}
+
+{% load static %}
+{% block title %} - Main{%endblock title%}
+
+{%block content%}
+<div class="_container">
+    <div class="row">
+    {% for table in tables %}
+        <div class="col-lg-3 p-2">
+            <div class="card _shadow">
+                <div class="card-header text-end ">
+                    <a href="{% url 'table:table_view' table.pk %}" class="_icon-link" ><i class="bi bi-eye"></i></a>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title"><span class="badge bg-secondary">{{table.t_id}}. Asztal</span></h5>
+                    <p class="card-text">{{table.description}}</p>
+                    <a href="{% url 'table:table_view' table.pk %}"  class="btn _btn">Rendelés felvétel</a>
+                </div>
+
+
+                <div class="card-footer">
+                    <i class="bi bi-cart"> {{table.get_table_order_count}} db</i>
+                </div>
+                <div class="card-footer">
+                    <i class="bi bi-wallet"> {{table.get_table_order_price}} FT</i>
+                </div>
+
+            </div><!-- CARD -->
+        </div><!-- COL -->
+    {% empty %}
+        Nincs szabad asztal
+    {% endfor %}
+    </div><!-- ROW -->
+</div>
+
+{% endblock content%}

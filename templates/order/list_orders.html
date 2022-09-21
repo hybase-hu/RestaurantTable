@@ -1,0 +1,59 @@
+{% extends 'includes/main.html' %}
+
+{% load static %}
+{% block title %} - Orders {%endblock title%}
+
+{%block content%}
+
+<div class="_container">
+    <div class="card _shadow">
+        <div class="card-header">
+
+            <p class="card-title">Pending Orders</p>
+
+        </div>
+
+        <div class="card-body table-responsive">
+            <table class="table">
+
+                {% for table_order in current_table_orders.all %}
+
+                    <thead class="bg-dark text-light">
+
+                        <tr>
+                            <th scope="col"><span class="badge bg-secondary">{{table_order.table.t_id}}. Asztal</span></th>
+                            <th scope="col">Food ID</th>
+                            <th scope="col">Food</th>
+                            <th scope="col">Time</th>
+                            <th scope="col">Count</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for order in table_order.orders.all %}
+                        <tr>
+                            <td></td>
+                            <td>{{order.food.f_id}}.</td>
+                            <td>{{order.food.name}}</td>
+                            <td>{{order.created_at | timesince}}</td>
+                            <td>{{order.count}}</td>
+                        </tr>
+                    {% endfor%}
+
+                    </tbody>
+                  {% endfor %}
+
+            </table>
+        </div>
+
+
+
+        <div class="card-footer">
+            <i class="bi bi-wallet"> Nyam nyam</i>
+        </div>
+
+    </div><!-- CARD -->
+
+</div>
+
+{% endblock content %}

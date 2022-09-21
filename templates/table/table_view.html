@@ -1,0 +1,138 @@
+{% extends 'includes/main.html' %}
+
+{% load static %}
+{% block title %} - {{table.t_id}}. asztal{%endblock title%}
+
+{%block content%}
+
+
+<div class="_container" style="max-width:50rem;margin:0px auto">
+    <div class="card _shadow">
+        <div class="card-body">
+          <h5 class="card-title"><span class="badge bg-secondary">ADD ORDERS</span></h5>
+        </div>
+        <form action="{% url 'orders:add_orders' table.pk %}" method="POST">
+            {% csrf_token %}
+            <div class="card-body">
+                {{form.as_p}}
+                <button type="submit" class="btn _btn w-100">SAVE</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="_container">
+    <div class="card _shadow">
+        <div class="card-body">
+          <h5 class="card-title"><span class="badge bg-secondary">{{table.id}}. Asztal</span></h5>
+            <p class="card-text">{{table.description}}</p>
+            <a href="#" class="btn _btn">Rendelés felvétel</a>
+        </div>
+
+        <div class="card-body table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Food ID</th>
+                        <th scope="col">Food</th>
+                        <th scope="col">Time</th>
+                        <th scope="col">Count</th>
+                        <th scope="col" width="10rem"></th>
+                        <th scope="col" width="10rem"></th>
+                        <th scope="col" width="10rem"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for table_orders in table.get_table_current_orders.all %}
+                    {% for order in table_orders.orders.all %}
+                    <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td>{{order.food.f_id}}.</td>
+                        <td>{{order.food.name}}</td>
+                        <td>{{order.created_at}}</td>
+                        <td>{{order.count}}</td>
+
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" value="{{table_orders.pk}}" name="table_orders_pk">
+                            <input type="hidden" value="{{order.pk}}" name="order_pk">
+                            <td><button type="submit" class="btn _btn" name="add" value="xcv"><i class="bi bi-plus"></i></button></td>
+                        </form>
+
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" value="{{table_orders.pk}}" name="table_orders_pk">
+                            <input type="hidden" value="{{order.pk}}" name="order_pk">
+                            <td><button class="btn _btn" name="minus" value="xvv"><i class="bi bi-dash"></i></button></td>
+                        </form>
+
+                        <form action="{% url 'orders:delete_orders' table_pk=table.pk order_pk=order.pk  %}" method="post">
+                            {% csrf_token %}
+                            <td><button class="btn btn-danger"><i class="bi bi-trash3"></i></button></td>
+                        </form>
+                    </tr>
+                    {% endfor %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+
+        <div class="card-footer">
+            <i class="bi bi-cart"> {{table.get_table_order_count}} db</i>
+        </div>
+        <div class="card-footer">
+            <i class="bi bi-wallet"> {{table.get_table_order_price}} FT</i>
+        </div>
+
+    </div><!-- CARD -->
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+<!--    FINISH AND CLOSE ORDERS -->
+
+
+<div class="_container">
+    <div class="card _shadow">
+        <div class="card-header">Close orders and print block</div>
+        <div class="card-body text-center">
+            {% for table_order in table.get_table_current_orders.all %}
+            <form action="{% url 'orders:close_order' table_order.pk %}">
+
+                {%csrf_token%}
+                <p>Finish this table orders and print this block now</p>
+                <button type="submit" class="btn _btn">PRINT AND CLOSE</button>
+
+
+            {%endfor%}
+
+            </form>
+        </div>
+        <div class="card-footer text-center">**************************************************</div>
+    </div>
+</div>
+
+
+{%endblock content%}
