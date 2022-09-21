@@ -7,6 +7,14 @@ Mind számítógépen, mind tablet-mobil eszközön áttekinthető, akár korlá
 Ez csak teszt- illusztráció-referencia munka, de az eddig kód bárki számára nyiltan hozzá férhető és használható.
 
 
+Az oldal működése megtekinthető ezen a youtube linken: https://youtu.be/ibudBx0YqNU
+
+
+####################################################################################################
+
+This is promo web app with django - python for restaurant or pub. #Orders Manager WebApp with mobile response
+
+
 ![My Image](static/temp_pict/add_orders.png)
 
 ![My Image](static/temp_pict/orders.png)
